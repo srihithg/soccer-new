@@ -1,0 +1,29 @@
+---
+title: "soccer_birthdays"
+author: "Srihith"
+date: "6/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+```{r}
+x <- read_csv("new_birthdates.csv",
+              col_types = cols(value = col_character()))
+x %>% 
+  arrange(x) %>%
+  mutate(birth_month = substring(value, 7, 8)) %>%
+  group_by(birth_month) %>%
+  summarize(total = n()) %>%
+  mutate(month = c("Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")) %>%
+  ggplot(mapping = aes(x = month, y = total, fill = month)) +
+  geom_col() + 
+  coord_flip()
+```
+
+```{r}
+
+```
+
